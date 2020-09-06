@@ -6,6 +6,11 @@ function getRandomRGB() {
     return [getRandomInt(256), getRandomInt(256), getRandomInt(256)];
 }
 
+function validInput(input) {
+    let regex = /^([1-9]|[1-5]{1}[0-9]{1}|6[0-4])$/;
+    return regex.test(input);
+}
+
 const gridContainer = document.querySelector('#gridContainer');
 let color = getRandomRGB();
 
@@ -21,7 +26,7 @@ function setUpGrid(grid_size) {
     const cellArray = [...document.querySelectorAll(".cell")];
 
     cellArray.forEach(cell => {
-        cell.addEventListener("mouseover", function(event) {
+        cell.addEventListener("mouseover", function (event) {
             // change color when mouse over target
             let cellColor = this.style.backgroundColor.replace(/[^\d,]/g, '').split(',');
 
@@ -35,8 +40,8 @@ function setUpGrid(grid_size) {
 }
 
 function getGridSize() {
-    while (inputSize < 1 || inputSize > 64 || typeof parseInt(inputSize) === NaN) {
-        inputSize = prompt("Enter a new size for the NxN sketchpad (1-64)");  
+    while (!validInput(inputSize)) {
+        inputSize = prompt("Enter a new size for the NxN sketchpad (1-64)");
     }
 }
 
